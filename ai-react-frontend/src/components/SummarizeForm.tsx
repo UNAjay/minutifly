@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Box, Button, TextField, Typography, Paper, CircularProgress } from "@mui/material";
+import { summarizeMeeting } from "../api"; // import from your api.ts
 
 const SummarizeForm = () => {
   const [inputText, setInputText] = useState("");
@@ -11,9 +11,10 @@ const SummarizeForm = () => {
     if (!inputText) return;
     setLoading(true);
     setSummary("");
+
     try {
-      const res = await axios.post("http://localhost:5007/meeting/summarize", { text: inputText });
-      setSummary(res.data.summary);
+      const res = await summarizeMeeting(inputText); // Use your API function
+      setSummary(res.summary);
     } catch (err) {
       console.error(err);
       setSummary("Error summarizing text.");
