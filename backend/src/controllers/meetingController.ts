@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { generateSummary, generateAnswer } from "../services/aiService.js";
 
 export const summarizeMeeting = async (req: Request, res: Response) => {
+      console.log("BodyBody received:", req.body); // <--- add this
   try {
     const { transcript } = req.body;
     if (!transcript) return res.status(400).json({ error: "Transcript required" });
